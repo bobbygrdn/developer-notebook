@@ -19,4 +19,4 @@
 - Array-based implementations of other data structures are frequently simple and space-efficient (implicit data structures), requiring little space overhead, but may have poor space complexity, particularly when modified, compared to tree-based data structures (compare a sorted array to a search tree).
 - One or more large arrays are sometimes used to emulate in-program dynamic memory allocaiton, particularly memory pool allocation. Historically, this has sometimes been the only way to allocate “dynamic memory” portably.
 
-[Source Documenation:](https://en.wikipedia.org/wiki/Array_(data_structure))
+[Source Documenation](https://en.wikipedia.org/wiki/Array_(data_structure))
