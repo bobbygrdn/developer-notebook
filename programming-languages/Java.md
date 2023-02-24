@@ -43,7 +43,7 @@ Example:
     // After casting the answer would print -> 4.25
 ```
 
-### Classes
+### User Input
 
 #### Scanner
 
@@ -127,5 +127,186 @@ public class Main {
     }
 }
 // The above program takes in the users input and returns their name in its entirety as they typed it in the output string. This method is more diverse and flexible and will return the input as the user types it regardless of the number of tokens.
+```
+
+### Conditional Statements
+
+#### If, else-if, else blocks
+
+##### Relational Operators
+
+| Operator | Symbol |
+| --- | --- |
+| greater than | > |
+| greater than or equal to | >= |
+| less than | < |
+| less than or equal to | <= |
+| equal to | == |
+| strict equal to| === |
+| or |  |
+| and | && |
+
+##### If statement
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+
+        if (9 > 3) {
+            System.out.println("Nine is always greater than three!");
+        }
+    }
+}
+```
+
+##### If, else statement
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+
+        if (18 < 14) {
+            System.out.println("Is this number bigger?");
+        } else {
+            System.out.println("This number is not bigger.");
+        }
+    }
+}
+```
+
+##### If, else if, else statement
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+
+        if (9 > 12) {
+            System.out.println("This line will never print.")
+        } else if (9 < 12) {
+            System.out.println("This is the answer!")
+        } else {
+            System.out.println("No need for this, but good to have a catch statement.")
+        }
+    }
+}
+```
+
+##### String Comparison
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+
+        System.out.println("Monkey".equals("Monkey"));
+        // The above code will print out true because both strings are identical
+
+        System.out.println("Dog".equals("Cat"));
+        // The above code will print out false because both strings are not identical
+    }
+}
+```
+
+##### Nesting If statements
+
+```java
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner keyboardInput = new Scanner(System.in);
+
+        System.out.println("Legal Driver Check");
+
+        System.out.print("What is your age?");
+        Int age = keyboardInput.nextInt();
+
+        System.out.print("Do you have valid insurance?");
+        String validInsurance = keyboardInput.next();
+
+        if (age < 16) {
+            System.out.println("Sorry, you are not of legal age.")
+        } else {
+            if (validInsurance.equals("yes")) {
+                System.out.println("Thank you. Go about your day.");
+            } else {
+                System.out.println("I'm sorry. Your insurance is expired. Please do not drive.");
+            }
+        }
+
+        // The above conditional checks the answers of the user and responds with the appropriate answer to if they are able to drive legally.
+    }
+}
+```
+
+##### Lexical Scope
+
+- Any code that is derived inside a class can be access globally inside that class.
+- Code created in conditionals, nested conditionals or nested classes can only be accessed inside of the code in which they were created.
+
+Example: 
+```java
+public class Main {
+
+    public static void(String[] args) {
+
+        int numOfPeople = 12;
+
+        if (numOfPeople > 10) {
+            System.out.println("Wow! It is crowded in here.")
+            int numOfPeopleToLeave = numOfPeople - 10;
+        } else {
+            System.out.println("This party is great!")
+        }
+
+        int peopleWhoAreStillHere = numOfPeople - numOfPeopleToLeave;
+
+        System.out.println("%f people need to leave, now!", numOfPeopleToLeave);
+
+        // The above code will give several errors because the numOfPeopleToLeave variable was initialized inside the if statement and we are trying to access it in the global space of the class.
+    }
+}
+```
+
+##### Switch Statement
+
+- Switch statements are a more dynamic way of using conditionals.
+- The syntax for switch statements is easier to read and control.
+
+Example:
+```java
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner keyboardInput = new Scanner(System.in);
+
+        System.out.println("Type a number between 1 and 3?")
+        int num = keyboardInput.nextInt();
+
+        switch (num) {
+            case 1:
+                System.out.println("You entered one.");
+                break;
+            case 2:
+                System.out.println("You entered two.");
+                break;
+            case 3:
+                System.out.println("You entered three.");
+                break;
+            default:
+                System.out.println("Invalid number.");
+                break;
+        }
+
+        // Switch statements are a great way of cleaning up messy conditionals. Each case is checked to see if it matches the input and responds with the appropriate code.
+    }
+}
 ```
 
