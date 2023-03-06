@@ -2,6 +2,15 @@
 
 # REACT Deployment
 
+- [REACT Deployment](#react-deployment)
+    - [Deploying](#deploying)
+    - [Static Server](#static-server)
+    - [Other Solutions](#other-solutions)
+    - [Serving Apps and Client-Side Routing](#serving-apps-and-client-side-routing)
+    - [Customizing Environments Variables for Arbitrary Build Environments](#customizing-environments-variables-for-arbitrary-build-environments)
+    - [AWS Amplify](#aws-amplify)
+    - [Azure](#azure)
+
 ## Deploying 
 
 - ```npm run build``` creates a ```build``` directory with a production build of your app. Set up your favorite HTTP server so that a visitor to your site is served ```index.html```, and requests to static paths like ```/static/js/main```. ```<hash>.js``` are serverd with the contents of the ```/static/js/main```. ```<hash>.js``` file. For more information see the [production build](https://create-react-app.dev/docs/production-build) section.
