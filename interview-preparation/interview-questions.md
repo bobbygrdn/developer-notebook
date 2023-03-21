@@ -34,6 +34,7 @@
 - How do you capture insights into UX today?
 - What customer commitments or urgent project deadlines are relevant to this role?
 - What gets you out of bed every morning to do your work?
+- If you hire me today, in-a year's time how will you know that I was the right fit?
 
 ###### CEO/Founder
 
