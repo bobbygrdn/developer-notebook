@@ -9,7 +9,7 @@ In any Spring Boot Restful API you will need to start following some simple step
     - Spring Initializr
         1. Navigate to [https://start.spring.io](https://start.spring.io)
 
-        ![Spring Boot Initializr Application]("")
+        ![Spring Boot Initializr Application](https://user-images.githubusercontent.com/96712943/234622225-8274780a-c4a0-486a-92d7-358bf292f8bb.png)
 
         2. Choose either Gradle or Maven
         3. Choose Java
@@ -101,4 +101,4 @@ In any Spring Boot Restful API you will need to start following some simple step
         ```
         **Here is a break down of each of these lines**
         
-        ![application.properties file]()
+        ![application.properties file](https://user-images.githubusercontent.com/96712943/234622347-97b98583-1360-42a3-9660-39c6d69f9bcf.png)
