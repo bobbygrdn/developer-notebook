@@ -8,7 +8,9 @@ In any Spring Boot Restful API you will need to start following some simple step
 - Initializing a Spring Boot Application(We will walk through two different ways to initialize a project)
     - Spring Initializr
         1. Navigate to [https://start.spring.io](https://start.spring.io)
+
         ![Spring Boot Initializr Application]("")
+
         2. Choose either Gradle or Maven
         3. Choose Java
         4. Choose Spring Boot Version
@@ -98,4 +100,5 @@ In any Spring Boot Restful API you will need to start following some simple step
         spring.jpa.hibernate.ddl-auto=update
         ```
         **Here is a break down of each of these lines**
+        
         ![application.properties file]()
