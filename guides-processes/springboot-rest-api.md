@@ -380,218 +380,199 @@ In any Spring Boot Restful API you will need to start following some simple step
         3. Now we will add our code to make this a proper model service controller class
             - MyModelController Class Initial Creation
                 - We use the `@RestController` annotation to let our Java program know that this class is a `Rest Controller` that will be used to control the actions between the service layer and the database
-                - We use the `@RequestMapping("/api/v1")` annotation to tell our program how to handle incoming HTTP requests from our frontend 
+                - We use the `@RequestMapping("/api/v1/")` annotation to tell our program how to handle incoming HTTP requests from our client 
             ```
             @RestController
-            @RequestMapping("/api/v1")
+            @RequestMapping("/api/v1/")
             public class MyModelController {
 
             }
             ```
 
-            - Add our fields for our `model service controller class`
-                - The `myModelService` field is used to store our service for our model so we can call methods to handle requests sent from the frontend
+            - Add our fields for our `model controller class`
+                - We use the `@Autowired` annotation to automatically `inject` an `object instance` of our `UserRepository interface` into our `private field`
+                - The `myModeRepository` field is used to store our repository for our model so we can call methods to handle requests sent from the client
             ```
             @RestController
-            @RequestMapping("/api/myModel")
+            @RequestMapping("/api/v1/")
             public class MyModelController {
 
+                @Autowired
                 private MyModelRepository myModeRepository;
 
             }
             ```
 
-            - Add our constructor to initialize all of our fields
-                - We call the `constructor` of the `Object Java class` using the `super method`
-                - We initialize the `myModelService field` for the class when we create an object instance
-            ```
-            @RestController
-            @RequestMapping("/api/myModel")
-            public class MyModelController {
-
-                private MyModelService myModelService;
-
-                public MyModelController(MyModelService myModelService) {
-                    super();
-                    this.myModelService = myModelService;
-                }
-                
-            }
-            ```
-
             - Add our `HTTP POST route` method
                 - We use the `@PostMapping` annotation to tell our Java program that this is how we will control the `POST` route requests for this model
-                - We use the `ResponseEntity class` to create a `response object` with the `HTTP status code` and the `response body`
-                - We call the `saveMyModel method` from our `MyModelService class` to `save` the new model
-                - We return a `ResponseEntity` back to our `client` telling them the `object` was successful created
+                - We create the `saveMyModel` method which calls the `myModelRepository save` method to `save` the new model to our `repository`
             ```
             @RestController
-            @RequestMapping("/api/myModel")
+            @RequestMapping("/api/v1/")
             public class MyModelController {
 
-                private MyModelService myModelService;
+                @Autowired
+                private MyModelRepository myModelRepository;
 
-                public MyModelController(MyModelService myModelService) {
-                    super();
-                    this.myModelService = myModelService;
-                }
-
-                @PostMapping
-                public ResponseEntity<MyModel> saveMyModel(@RequestBody MyModel myModel) {
-                    return new ResponseEntity<MyModel>(myModelService.saveMyModel(myModel), HttpStatus.CREATED);
+                @PostMapping("/myModel")
+                public MyModel saveMyModel(@RequestBody MyModel myModel) {
+                    return myModelRepository.save(myModel);
                 }
                 
             }
             ```
 
             - Add our `HTTP GET ALL route` method
-                - We use the `@GetMapping` annotation to tell our Java program that this is how we will control the `GET ALL` route requests for this model
-                - We call the `getAllMyModels method` from our `MyModelService class` to `get` all the models as a `List`
-                - We return the `list` back to our `client`
+                - We use the `@GetMapping("/myModel")` annotation to tell our Java program that this is how we will control the `GET ALL` route requests for this model
+                - We create the `getAllMyModels` method which calls the `myModelRepository findAll` method which returns a all of our `objects` in our `repository`
             ```
             @RestController
-            @RequestMapping("/api/myModel")
+            @RequestMapping("/api/v1")
             public class MyModelController {
 
-                private MyModelService myModelService;
+                @Autowired
+                private MyModelRepository MyModelRepository;
 
-                public MyModelController(MyModelService myModelService) {
-                    super();
-                    this.myModelService = myModelService;
+                @PostMapping("/myModel")
+                public MyModel saveMyModel(@RequestBody MyModel myModel) {
+                    return myModelRepository.save(myModel);
                 }
 
-                @PostMapping
-                public ResponseEntity<MyModel> saveMyModel(@RequestBody MyModel myModel) {
-                    return new ResponseEntity<MyModel>(myModelService.saveMyModel(myModel), HttpStatus.CREATED);
-                }
-
-                @GetMapping
-                public List<MyModel> getAllMyModels() {
-                    return myModelService.getAllMyModels();
+                @GetMapping("/myModel")
+                public List<User> getAllMyModels() {
+                    return this.myModelRepository.findAll();
                 }
                 
             }
             ```
 
             - Add our `HTTP GET ONE route` method
-                - We use the `@GetMapping("{id}")` annotation to tell our Java program that this is how we will control the `GET ONE` route requests for this model
-                - We use the `ResponseEntity class` to create a `response object` with the `HTTP status code` and the `response body`
+                - We use the `@GetMapping("/myModel/{id}")` annotation to tell our Java program that this is how we will control the `GET ONE` route requests for this model
                 - We use the `@PathVariable("id")` to tell our method we are using the `url path id parameter` and we will assign it to a new variable called `myModelId`
-                - We call the `getMyModelById method` from our `MyModelService class` to `get` the `object` we are looking for by its `id` 
-                - We return a `ResponseEntity` back to our `client` telling them the process was successful
+                - We create the `getMyModel` method which calls our `MyModelRepository findById` method to `get` the `object` we are looking for by its `id`. If it does not exist we return a new custom exception
+                - We return the `ResponseEntity class` with a `response object` and a `HTTP status code`
             ```
             @RestController
-            @RequestMapping("/api/myModel")
+            @RequestMapping("/api/v1")
             public class MyModelController {
 
-                private MyModelService myModelService;
+                @Autowired
+                private MyModelRepository MyModelRepository;
 
-                public MyModelController(MyModelService myModelService) {
-                    super();
-                    this.myModelService = myModelService;
+                @PostMapping("/myModel")
+                public MyModel saveMyModel(@RequestBody MyModel myModel) {
+                    return myModelRepository.save(myModel);
                 }
 
-                @PostMapping
-                public ResponseEntity<MyModel> saveMyModel(@RequestBody MyModel myModel) {
-                    return new ResponseEntity<MyModel>(myModelService.saveMyModel(myModel), HttpStatus.CREATED);
+                @GetMapping("/myModel")
+                public List<User> getAllMyModels() {
+                    return this.myModelRepository.findAll();
                 }
 
-                @GetMapping
-                public List<MyModel> getAllMyModels() {
-                    return myModelService.getAllMyModels();
-                }
-
-                @GetMapping("{id}")
+                @GetMapping("/myModel/{id}")
                 public ResponseEntity<MyModel> getMyModel(@PathVariable("id") long myModelId) {
-                    return new ResponseEntity<MyModel>(myModelService.getMyModelById(myModelId), HttpStatus.OK);
+                    MyModel myModel = this.myModelRepository.findById(myModelId).orElseThrow(() -> new ResourceNotFoundException("MyModel does not exist with the Id: " + myModelId));
+                    return ResponseEntity.ok(myModel);
                 }
                 
             }
             ```
             - Add our `HTTP PUT route` method
-                - We use the `@PutMapping("{id}")` annotation to tell our Java program that this is how we will control the `PUT` route requests for this model
-                - We use the `ResponseEntity class` to create a `response object` with the `HTTP status code` and the `response body`
-                - We use the `@PathVariable("id")` to tell our method we are using the `url path id parameter` and we will assign it to a new variable called `id`
+                - We use the `@PutMapping("/myModel/{id}")` annotation to tell our Java program that this is how we will control the `PUT` route requests for this model
+                - We use the `@PathVariable("id")` to tell our method we are using the `url path id parameter` and we will assign it to a new variable called `myModelId`
                 - We use the `@RequestBody` annotation to tell our method where this object we are using is coming from we assign it to a new variable called `myModel`
-                - We call the `updateMyModel method` from our `MyModelService class` to `put` the changes from the passed in `object` into the `object` we are looking for by its `id` 
+                - We create the `updateMyModel method` which calls the  `myModelRepository findById` method to get the `object` we want to `put` the changes from the passed in `object` into. If it is not found we throw our custom exception
+                - We modify the data in our `existingMyModel object` using `setter` methods and the passed in `objects data`
+                - We get the data from the passed in `object` by using its `getter` methods
+                - We use the `myModelRepository save` method to `save` the changes we made to our `existingMyModel object` into our `repository`
                 - We return a `ResponseEntity` back to our `client` telling them the process was successful
             ```
             @RestController
-            @RequestMapping("/api/myModel")
+            @RequestMapping("/api/v1")
             public class MyModelController {
 
-                private MyModelService myModelService;
+                @Autowired
+                private MyModelRepository MyModelRepository;
 
-                public MyModelController(MyModelService myModelService) {
-                    super();
-                    this.myModelService = myModelService;
+                @PostMapping("/myModel")
+                public MyModel saveMyModel(@RequestBody MyModel myModel) {
+                    return myModelRepository.save(myModel);
                 }
 
-                @PostMapping
-                public ResponseEntity<MyModel> saveMyModel(@RequestBody MyModel myModel) {
-                    return new ResponseEntity<MyModel>(myModelService.saveMyModel(myModel), HttpStatus.CREATED);
+                @GetMapping("/myModel")
+                public List<User> getAllMyModels() {
+                    return this.myModelRepository.findAll();
                 }
 
-                @GetMapping
-                public List<MyModel> getAllMyModels() {
-                    return myModelService.getAllMyModels();
-                }
-
-                @GetMapping("{id}")
+                @GetMapping("/myModel/{id}")
                 public ResponseEntity<MyModel> getMyModel(@PathVariable("id") long myModelId) {
-                    return new ResponseEntity<MyModel>(myModelService.getMyModelById(myModelId), HttpStatus.OK);
+                    MyModel myModel = this.myModelRepository.findById(myModelId).orElseThrow(() -> new ResourceNotFoundException("MyModel does not exist with the Id: " + myModelId));
+                    return ResponseEntity.ok(myModel);
                 }
 
-                @PutMapping("{id}")
+                @PutMapping("/myModel/{id}")
                 public ResponseEntity<MyModel> updateMyModel(@PathVariable("id") long id, @RequestBody MyModel myModel) {
-                    return new ResponseEntity<MyModel>(myModelService.updateMyModel(myModel, id), HttpStatus.OK);
+
+                    MyModel existingMyModel = this.myModelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("MyModel does not exist with the Id: " + myModelId));
+
+                    existingMyModel.setFirstName(myModel.getFirstName());
+                    existingMyModel.setLastName(myModel.getLastName());
+
+                    MyModel updatedMyModel = this.myModelRepository.save(existingMyModel);
+                    return ResponseEntity.ok(updatedMyModel);
                 }
                 
             }
             ```
 
             - Add `HTTP DELETE route` method
-                - We use the `@DeleteMapping("{id}")` annotation to tell our Java program that this is how we will control the `DELETE` route requests for this model
-                - We use the `ResponseEntity class` to create a `response object` with the `HTTP status code` and the `response body`
+                - We use the `@DeleteMapping("/myModel/{id}")` annotation to tell our Java program that this is how we will control the `DELETE` route requests for this model
                 - We use the `@PathVariable("id")` to tell our method we are using the `url path id parameter` and we will assign it to a new variable called `id`
-                - We call the `deleteMyModel method` from our `MyModelService class` to `delete` the `object` we are looking for by its `id` 
+                - We create the `deleteMyModel method` which calls the  `myModelRepository findById` method to get the `object` we want to `delete`. If it is not found we throw our custom exception
+                - We `delete` the `myModel object` using the `myModelRepository delete` method
                 - We return a `ResponseEntity` back to our `client` telling them the process was successful
             ```
             @RestController
-            @RequestMapping("/api/myModel")
+            @RequestMapping("/api/v1")
             public class MyModelController {
 
-                private MyModelService myModelService;
+                @Autowired
+                private MyModelRepository MyModelRepository;
 
-                public MyModelController(MyModelService myModelService) {
-                    super();
-                    this.myModelService = myModelService;
+                @PostMapping("/myModel")
+                public MyModel saveMyModel(@RequestBody MyModel myModel) {
+                    return myModelRepository.save(myModel);
                 }
 
-                @PostMapping
-                public ResponseEntity<MyModel> saveMyModel(@RequestBody MyModel myModel) {
-                    return new ResponseEntity<MyModel>(myModelService.saveMyModel(myModel), HttpStatus.CREATED);
+                @GetMapping("/myModel")
+                public List<User> getAllMyModels() {
+                    return this.myModelRepository.findAll();
                 }
 
-                @GetMapping
-                public List<MyModel> getAllMyModels() {
-                    return myModelService.getAllMyModels();
-                }
-
-                @GetMapping("{id}")
+                @GetMapping("/myModel/{id}")
                 public ResponseEntity<MyModel> getMyModel(@PathVariable("id") long myModelId) {
-                    return new ResponseEntity<MyModel>(myModelService.getMyModelById(myModelId), HttpStatus.OK);
+                    MyModel myModel = this.myModelRepository.findById(myModelId).orElseThrow(() -> new ResourceNotFoundException("MyModel does not exist with the Id: " + myModelId));
+                    return ResponseEntity.ok(myModel);
                 }
 
-                @PutMapping("{id}")
+                @PutMapping("/myModel/{id}")
                 public ResponseEntity<MyModel> updateMyModel(@PathVariable("id") long id, @RequestBody MyModel myModel) {
-                    return new ResponseEntity<MyModel>(myModelService.updateMyModel(myModel, id), HttpStatus.OK);
+
+                    MyModel existingMyModel = this.myModelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("MyModel does not exist with the Id: " + myModelId));
+
+                    existingMyModel.setFirstName(myModel.getFirstName());
+                    existingMyModel.setLastName(myModel.getLastName());
+
+                    MyModel updatedMyModel = this.myModelRepository.save(existingMyModel);
+                    return ResponseEntity.ok(updatedMyModel);
                 }
 
-                @DeleteMapping("{id}")
+                @DeleteMapping("/myModel/{id}")
                 public ResponseEntity<String> deleteMyModel(@PathVariable("id") long id) {
-                    myModelService.deleteMyModel(id);
-                    return new ResponseEntity<String>("My Model deleted successfully!", HttpStatus.OK);
+                    MyModel myModel = this.myModelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("MyModel does not exist with the Id: " + myModelId));
+
+                    this.myModelRepository.delete(myModel);
+                    return ResponseEntity.ok("My Model with Id: " + id + " has been deleted");
                 }
                 
             }
