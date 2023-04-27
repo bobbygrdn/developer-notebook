@@ -735,7 +735,7 @@ In any Spring Boot Restful API you will need to start following some simple step
 
                 private MyModelService myModelService;
 
-                public MyModelController(myModelService) {
+                public MyModelController(MyModelService myModelService) {
                     super();
                     this.myModelService = myModelService;
                 }
@@ -755,7 +755,7 @@ In any Spring Boot Restful API you will need to start following some simple step
 
                 private MyModelService myModelService;
 
-                public MyModelController(myModelService) {
+                public MyModelController(MyModelService myModelService) {
                     super();
                     this.myModelService = myModelService;
                 }
@@ -779,7 +779,7 @@ In any Spring Boot Restful API you will need to start following some simple step
 
                 private MyModelService myModelService;
 
-                public MyModelController(myModelService) {
+                public MyModelController(MyModelService myModelService) {
                     super();
                     this.myModelService = myModelService;
                 }
@@ -810,7 +810,7 @@ In any Spring Boot Restful API you will need to start following some simple step
 
                 private MyModelService myModelService;
 
-                public MyModelController(myModelService) {
+                public MyModelController(MyModelService myModelService) {
                     super();
                     this.myModelService = myModelService;
                 }
@@ -846,7 +846,7 @@ In any Spring Boot Restful API you will need to start following some simple step
 
                 private MyModelService myModelService;
 
-                public MyModelController(myModelService) {
+                public MyModelController(MyModelService myModelService) {
                     super();
                     this.myModelService = myModelService;
                 }
@@ -887,7 +887,7 @@ In any Spring Boot Restful API you will need to start following some simple step
 
                 private MyModelService myModelService;
 
-                public MyModelController(myModelService) {
+                public MyModelController(MyModelService myModelService) {
                     super();
                     this.myModelService = myModelService;
                 }
