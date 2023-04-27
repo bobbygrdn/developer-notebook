@@ -115,7 +115,8 @@ In any Spring Boot Restful API you will need to start following some simple step
         ```
         **Here is a break down of each of these lines**
         
-        ![application.properties file](https://user-images.githubusercontent.com/96712943/234622347-97b98583-1360-42a3-9660-39c6d69f9bcf.png)
+        ![application.properties file](https://user-images.githubusercontent.com/96712943/234926186-112af7de-455a-4efa-aee8-16a2fe26f24e.png)
+
 
 ### Model Creation
 [Go to the top](#starting-your-spring-boot-application-build)
