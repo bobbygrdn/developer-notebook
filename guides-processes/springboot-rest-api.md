@@ -10,8 +10,6 @@ In any Spring Boot Restful API you will need to start following some simple step
     - [Model Creation](#model-creation)
     - [Repository Creation](#repository-creation)
     - [Exception Creation](#exception-creation)
-    - [Service Creation](#service-creation)
-    - [Service Implementation Creation](#service-implementation-creation)
     - [Controller Creation](#controller-creation)
     - [Conclusion](#conclusion)
 
@@ -81,8 +79,6 @@ In any Spring Boot Restful API you will need to start following some simple step
                     exception
                     model
                     repository
-                    service
-                        impl
                     ExampleApplication.java
                 resources
                     application.properties
@@ -352,346 +348,26 @@ In any Spring Boot Restful API you will need to start following some simple step
             ```
             - Add our fields for our exception class
                 - The `serialVersionUID` field is used to make sure that the class remains compatible with its serialized form across different versions of the software
-                - The other fields are used to identify what resource we are talking about by its name, value and specific field name
             ```
             @ResponseStatus(value = HttpStatus.NOT_FOUND)
             public class ResourceNotFoundException extends RuntimeException {
 
                 private static final long serialVersionUID = 1L;
-                private String resourceName;
-                private String fieldName;
-                private Object FieldValue;
 
             }
             ```
             - Add our constructorto initialize all of our fields
-                - This constructor calls the constructor from the `RuntimeException class` using the `super method` with the provided string we have formatted
-                - Then as always it initializes the fields for the class when we create an object instance
+                - This constructor calls the constructor from the `RuntimeException class` using the `super method` with the provided string
             ```
             @ResponseStatus(value = HttpStatus.NOT_FOUND)
             public class ResourceNotFoundException extends RuntimeException {
 
                 private static final long serialVersionUID = 1L;
-                private String resourceName;
-                private String fieldName;
-                private Object FieldValue;
 
-                public ResourceNotFoundException(String resourceName, String fieldName, Object fieldValue) {
-                    super(String.format("%s not found with %s : '%s'", resourceName, fieldName, fieldValue));
-                    this.resourceName = resourceName;
-                    this.fieldName = fieldName;
-                    this.fieldValue = fieldValue;
+                public ResourceNotFoundException(String message) {
+                    super(message);
+   
                 }
-            }
-            ```
-            - Add our Getters and Setters for our fields
-                - These are standard Java Getters and Setters for our fields
-            ```
-            @ResponseStatus(value = HttpStatus.NOT_FOUND)
-            public class ResourceNotFoundException extends RuntimeException {
-
-                private static final long serialVersionUID = 1L;
-                private String resourceName;
-                private String fieldName;
-                private Object FieldValue;
-
-                public ResourceNotFoundException(String resourceName, String fieldName, Object fieldValue) {
-                    super(String.format("%s not found with %s : '%s'", resourceName, fieldName, fieldValue));
-                    this.resourceName = resourceName;
-                    this.fieldName = fieldName;
-                    this.fieldValue = fieldValue;
-                }
-
-                public static long getSerialversionuid() {
-                    return serialVersionUID;
-                }
-
-                public String getResourceName() {
-                    return resourceName;
-                }
-
-                public void setResourceName(String resourceName) {
-                    this.resourceName = resourceName;
-                }
-
-                public String getFieldName() {
-                    return fieldName;
-                }
-
-                public void setFieldName(String fieldName) {
-                    this.fieldName = fieldName;
-                }
-
-                public Object getFieldValue() {
-                    return fieldValue;
-                }
-
-                public void setFieldValue(Object fieldValue) {
-                    this.fieldValue = fieldValue;
-                }
-            }
-            ```
-    ### Service Creation
-    [Go to the top](#starting-your-spring-boot-application-build)
-    - Now that we have our `model`, `repository` and a `custom exception` to handle Resource not found exceptions, let's create a `service interface` for our model
-        1. Navigate to `src/main/java/service`
-        2. Create a file for our model service
-            - Ex: `MyModelService.java`
-        3. Now we will add our code to make this a proper model service interface
-            - MyModelService Interface Creation
-                - We create a method for each of our `C.R.U.D.` functions we want to perform on our model
-                    - `Create` -> `MyModel saveMyModel(MyModel myModel);`
-                        - We use this method to create a new `object instance` of our `model class` and `store` it as an `entity` in our `MySQL database`
-                    - `Get All` -> `List<MyModel> getAllMyModel();`
-                        - We use this method to get all the `entities` in our `MySQL database` and return them as a `list of object instances` of our `model class`
-                    - `Get One` -> `MyModel getMyModelById(long id);`
-                        - We use this method to get one `entity` from our `MySQL database` by it's `id` and return it as a `object instance` of our `model class`
-                    - `Put` -> `MyModel updateMyModel(MyModel, long id);`
-                        - We use this method to replace an `existing entity` with a `new entity` with `updated information` in our `MySQL database` by it's `id`
-                    - `Delete` -> `void deleteMyModel(long id);`
-                        - We use this method to delete an `entity` from our `MySQL database` by it's `id`
-
-            ```
-            public interface MyModelService {
-                
-                MyModel saveMyModel(MyModel myModel);
-
-                List<MyModel> getAllMyModel();
-
-                MyModel getMyModelById(long id);
-
-                MyModel updateMyModel(MyModel myModel, long id);
-
-                void deleteMyModel(long id);
-            
-            }
-            ```
-    ### Service Implementation Creation
-    [Go to the top](#starting-your-spring-boot-application-build)
-    - Now that we have our `model`, `repository`, a `custom exception` to handle Resource not found exceptions, and a `service interface`, let's create a `service implementation class` for our `model service interface`
-        1. Navigate to `src/main/java/service/impl`
-        2. Create a file for our model service implementation
-            - Ex: `MyModelServiceImpl.java`
-        3. Now we will add our code to make this a proper model service interface implementation
-            - MyModelServiceImpl Class Initial Creation
-                - We use the `@Service` annotation to let our Java program know that this class is a `service component` that can be used by other components in the application
-                - We implements the `MyModelService interface` so we can override it's methods for all of our `C.R.U.D.` functions we want this service to execute
-            ```
-            @Service
-            public class MyModelServiceImpl implements MyModelService {
-
-            }
-            ```
-            - Add our fields for our `model Service Interface Implementation class`
-                - The `myModelRepository` field is used to store our repository for our model so we can use it's methods and properties
-            ```
-            @Service
-            public class MyModelServiceImpl implements MyModelService {
-
-                private MyModelRepository myModelRepository;
-
-            }
-            ```
-            - Add our constructor to initialize all of our fields
-                - We call the `constructor` of the `MyModelService interface` using the `super method`
-                - We initialize the `myModelRepository field` for the class when we create an object instance
-            ```
-            @Service
-            public class MyModelServiceImpl implements MyModelService {
-
-                private MyModelRepository myModelRepository;
-
-                public MyModelServiceImpl(MyModelRepository myModelRepository) {
-                    super();
-                    this.myModelRepository = myModelRepository;
-                }
-
-            }
-            ```
-            - Add our `Create method` for our `HTTP POST route`
-                - We use the `@Override` annotation to tell our Java program that we are overriding a parent method from our `myModelService interface`
-                - We input our `object instance` of our `MyModel class` as a parameter
-                - We return the response to calling our `MyModelRepository save` method which saves our object instance to our `MyModelRepository` field
-            ```
-            @Service
-            public class MyModelServiceImpl implements MyModelService {
-
-                private MyModelRepository myModelRepository;
-
-                public MyModelServiceImpl(MyModelRepository myModelRepository) {
-                    super();
-                    this.myModelRepository = myModelRepository;
-                }
-
-                @Override
-                public MyModel saveMyModel(MyModel myModel) {
-                    return myModelRepository.save(myModel);
-                }
-
-            }
-            ```
-
-            - Add our `Read method` for our `HTTP Get All Route`
-                - We use the `@Override` annotation to tell our Java program that we are overriding a parent method from our `myModelService interface`
-                - We return a list of our `object instances` of our `MyModel class` by calling the `myModelRepository` `findAll method`
-            ```
-            @Service
-            public class MyModelServiceImpl implements MyModelService {
-
-                private MyModelRepository myModelRepository;
-
-                public MyModelServiceImpl(MyModelRepository myModelRepository) {
-                    super();
-                    this.myModelRepository = myModelRepository;
-                }
-
-                @override
-                public MyModel saveMyModel(MyModel myModel) {
-                    return myModelRepository.save(myModel);
-                }
-            
-                @override
-                public List<MyModel> getAllMyModels() {
-                    return MyModelRepository.findAll();
-                }
-
-            }
-            ```
-
-            - Add our `Read method` for our `HTTP Get One Route`
-                - We use the `@Override` annotation to tell our Java program that we are overriding a parent method from our `MyModelService interface`
-                - We pass in an `id` of the object we are looking for into our `myModelRepository` `findById method`
-                - We return an object instance of our MyModel class by calling the myModelRepository findById method using the passed in id
-                - We use the `orElseThrow method` to `throw` our `custom exception class` if the object we are trying to find does not exist
-                - We pass in the `resourceName`, `fieldName` and `id` of the resource that we are trying to find
-                
-            ```
-            @Service
-            public class MyModelServiceImpl implements MyModelService {
-
-                private MyModelRepository myModelRepository;
-
-                public MyModelServiceImpl(MyModelRepository myModelRepository) {
-                    super();
-                    this.myModelRepository = myModelRepository;
-                }
-
-                @Override
-                public MyModel saveMyModel(MyModel myModel) {
-                    return myModelRepository.save(myModel);
-                }
-            
-                @Override
-                public List<MyModel> getAllMyModels() {
-                    return MyModelRepository.findAll();
-                }
-
-                @Override
-                public MyModel getMyModelById(long id) {
-                    return myModelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("MyModel", "Id", id));
-                }
-            }
-            ```
-            
-            - Add our `Update method` for our `HTTP Put Route`
-                - We use the `@Override` annotation to tell our Java program that we are overriding a parent method from our `MyModelService interface`
-                - We pass in the new object instance of our model class and the id of the object we are changing using the properties of our passed in object instance
-                - We check to see if the `object` we are referencing by `id` exists and if it does not we throw our custom `ResourceNotFoundException`
-                - Once we have verified it exists, we use `setter methods` to set the fields on the `existing object` with `getter methods` used to get the fields from our `passed in object` 
-                - We use the `myModelRepository` `save method` to save our newly changed object into our `repository`
-                - We return the `object` as a response to calling our `update method`
-            ```
-            @Service
-            public class MyModelServiceImpl implements MyModelService {
-
-                private MyModelRepository myModelRepository;
-
-                public MyModelServiceImpl(MyModelRepository myModelRepository) {
-                    super();
-                    this.myModelRepository = myModelRepository;
-                }
-
-                @Override
-                public MyModel saveMyModel(MyModel myModel) {
-                    return myModelRepository.save(myModel);
-                }
-            
-                @Override
-                public List<MyModel> getAllMyModels() {
-                    return MyModelRepository.findAll();
-                }
-
-                @Override
-                public MyModel getMyModelById(long id) {
-                    return myModelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("MyModel", "Id", id));
-                }
-
-                @Override
-                public MyModel updateMyModel(MyModel myModel, long id) {
-
-                    MyModel existingMyModel = myModelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("My Model", "Id", id));
-
-                    existingMyModel.setFirstName(myModel.getFirstName());
-                    existingMyModel.setLastName(myModel.getFirstName());
-
-                    myModelRepository.save(existingMyModel);
-                    return existingMyModel;
-                }
-
-            }
-            ```
-
-            - Add our `Delete method` for our `HTTP Delete Route`
-                - We use the `@Override` annotation to tell our Java program that we are overriding a parent method from our `MyModelService interface`
-                - We pass in the `id` of the `object` we are wanting to `delete`
-                - We check to see if the `object` we are referencing by `id` exists and if it does not we throw our custom `ResourceNotFoundException`
-                - Once we have verified it exists, we use the `myModelRepository class` method `deleteById` to `delete` the `object` referencing it by the passed in `id`
-            ```
-            @Service
-            public class MyModelServiceImpl implements MyModelService {
-
-                private MyModelRepository myModelRepository;
-
-                public MyModelServiceImpl(MyModelRepository myModelRepository) {
-                    super();
-                    this.myModelRepository = myModelRepository;
-                }
-
-                @Override
-                public MyModel saveMyModel(MyModel myModel) {
-                    return myModelRepository.save(myModel);
-                }
-            
-                @Override
-                public List<MyModel> getAllMyModels() {
-                    return MyModelRepository.findAll();
-                }
-
-                @Override
-                public MyModel getMyModelById(long id) {
-                    return myModelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("MyModel", "Id", id));
-                }
-
-                @Override
-                public MyModel updateMyModel(MyModel myModel, long id) {
-
-                    MyModel existingMyModel = myModelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("My Model", "Id", id));
-
-                    existingMyModel.setFirstName(myModel.getFirstName());
-                    existingMyModel.setLastName(myModel.getFirstName());
-
-                    myModelRepository.save(existingMyModel);
-                    return existingMyModel;
-                }
-
-                @Override
-                public void deleteMyModel(long id) {
-
-                    myModelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("My model", "Id", id));
-
-                    myModelRepository.deleteById(id);
-                }
-
             }
             ```
 
@@ -704,10 +380,10 @@ In any Spring Boot Restful API you will need to start following some simple step
         3. Now we will add our code to make this a proper model service controller class
             - MyModelController Class Initial Creation
                 - We use the `@RestController` annotation to let our Java program know that this class is a `Rest Controller` that will be used to control the actions between the service layer and the database
-                - We use the `@RequestMapping("/api/myModel")` annotation to tell our program how to handle incoming HTTP requests from our frontend 
+                - We use the `@RequestMapping("/api/v1")` annotation to tell our program how to handle incoming HTTP requests from our frontend 
             ```
             @RestController
-            @RequestMapping("/api/myModel")
+            @RequestMapping("/api/v1")
             public class MyModelController {
 
             }
@@ -720,7 +396,7 @@ In any Spring Boot Restful API you will need to start following some simple step
             @RequestMapping("/api/myModel")
             public class MyModelController {
 
-                private MyModelService myModelService;
+                private MyModelRepository myModeRepository;
 
             }
             ```
