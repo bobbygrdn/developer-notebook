@@ -44,13 +44,13 @@ In any Spring Boot Restful API you will need to start following some simple step
     or
 
     - IDE Initialized Spring Boot Application
-        - Prerequisites
+        - Prerequisites if using VS Code
             - Install these VS Code Extensions
                 - Extension Pack for Java
                 - Spring Boot Extension Pack
             - Initalize our Java Development Kit (JDK) in our IDE environment
 
-        1. Open you selected IDE (We will be using VS Code)
+        1. Open your selected IDE (We will be using VS Code)
         2. Navigate to the Command Palette
         3. Search "Spring Initializr"
         4. Select "Spring Initializr: Create a Maven Project"
