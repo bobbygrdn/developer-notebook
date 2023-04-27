@@ -460,7 +460,7 @@ In any Spring Boot Restful API you will need to start following some simple step
 
                 MyModel getMyModelById(long id);
 
-                MyModel updateMyModel(MyModel, long id);
+                MyModel updateMyModel(MyModel myModel, long id);
 
                 void deleteMyModel(long id);
             
