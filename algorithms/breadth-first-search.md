@@ -9,7 +9,7 @@
 
 /* Loop through Data Structure using while loop with
  * condition to check if the current node is null
-*/
+ */
 
 // Perform some action on the value of the current node
 
@@ -32,7 +32,7 @@ using the pop method
 
 /* Loop through Data Structure using while loop with
  * condition to check if the current node is null
-*/
+ */
 
 // Perform some action on the value of the current node
 
