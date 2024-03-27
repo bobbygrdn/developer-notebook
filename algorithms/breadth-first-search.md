@@ -2,7 +2,7 @@
 
 ## BFS Using a Stack
 
-```
+```javascript
 // Create an empty stack using an array
 // push root node into stack
 // Create a variable to hold the current node and assign it to the root node
@@ -25,7 +25,7 @@ using the pop method
 
 ### BFS Using a Queue
 
-```
+```javascript
 // Create an empty queue using an array
 // push root node into queue
 // Create a variable to hold the current node and assign it to the root node
