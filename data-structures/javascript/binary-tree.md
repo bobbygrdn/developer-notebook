@@ -1,5 +1,7 @@
 # Binary Tree
 
+![Binary_tree_v2 svg](https://github.com/bobbygrdn/developer-notebook/assets/96712943/03451ddf-de5b-4ba0-bdf2-e212df916040)
+
 ## Rules of BT
 
 - Tree has only 1 root node
