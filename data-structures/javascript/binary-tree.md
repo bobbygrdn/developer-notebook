@@ -9,7 +9,7 @@
 - Tree has maximum 2 nodes attached to each node
 
 || Time Complexity | Space Complexity |
-|---|---|---|
+|:---:|:---:|:---:|
 | Insertion | O(N) | O(N^0.5) |
 | Search | O(N) | O(N^0.5) |
 | Deletion | O(N) | O(N^0.5) |
