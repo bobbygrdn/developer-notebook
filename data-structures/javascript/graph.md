@@ -53,4 +53,14 @@
 
 /* Loop through the neighbors of the source node by keying into the object 
  * using the for of loop. Push each neighbor onto the top of the stack
+
+### Depth First Traversal - Recursive
+
+**This method uses an explicit base case**
+
+// Perform some action on the value of the source node
+
+/* Loop through the neighbors of the source node by keying into the object 
+ * using the for of loop. Call the Depth First Traversal on each neighbor    
+ * node.
  */
