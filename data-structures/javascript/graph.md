@@ -11,17 +11,19 @@
 
 || Time Complexity | Space Complexity|
 | :---: | :---: | :---: |
-| Insertion |  |  |
-| Search |  |  |
-| Deletion |  |  |
+| Insert Vertex | O(1) | O(1) |
+| Insert Edge | O(1) | O(1) |
+| Search Vertex | O(V) | O(1) |
+| Search Edge | O(V) | O(1) |
+| Delete Vertex | O(V+E) | O(V+E) |
+| Delete Edge | O(E) | O(1) |
 
 ## Traversal Algorithms
 
-### Breadth First Traversal - Iterative
+### Breadth First Traversal
 
 ```
-// Create an empty queue using an array
-// Shift the root node into the queue
+// Create an queue using an array that contains the source node
 
 /* Loop through the Tree using a while loop with the condition of checking 
  * to see if the queue is empty. Create a temporary variable to hold the 
@@ -31,11 +33,10 @@
 
 // Perform some action on the value of the current node
 
-// Check to see if the left node is null
-// If it is not null, push the left node into the queue
+/* Loop through the neighbors of the source node by keying into the object 
+ * using the for of loop. Push each neighbor into the back of the queue.
+ */
 
-// Check to see if the right node is null
-// If it is not null, push the right node into the queue
 ```
 
 ### Depth First Traversal - Iterative
@@ -52,7 +53,8 @@
 // Perform some action on the value of the current node
 
 /* Loop through the neighbors of the source node by keying into the object 
- * using the for of loop. Push each neighbor onto the top of the stack
+ * using the for of loop. Push each neighbor onto the top of the stack.
+ */
 
 ### Depth First Traversal - Recursive
 
