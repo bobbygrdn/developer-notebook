@@ -18,7 +18,7 @@
 
 ## Search Algorithms
 
-### Breadth First Search
+### Breadth First Search - Iterative
 
 ```
 // Create an empty queue using an array
@@ -39,7 +39,7 @@
 // If it is not null, push the right node into the queue
 ```
 
-### Depth First Search
+### Depth First Search - Iterative
 
 // Create an empty stack using an array
 // Push the root node into the stack
