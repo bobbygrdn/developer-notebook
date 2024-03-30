@@ -4,6 +4,8 @@
 
 ## Rules of DG
 
+- DG connects one node to another using an edge
+- A node connected to another node is called a "Neighbor Node"
 
 ## Time and Space Complexity
 
