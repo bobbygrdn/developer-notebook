@@ -5,7 +5,7 @@
 ## Time and Space Complexity
 
 || Time Complexity | Space Complexity|
-| *---* | *---* | *---* |
+| :---: | :---: | :---: |
 | Insertion |  |  |
 | Search |  |  |
 | Deletion |  |  |
